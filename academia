@@ -1,0 +1,63 @@
+
+alunos = []
+
+def cadastrar_aluno():
+    nome = input("Nome do aluno: ")
+    idade = int(input("Idade: "))
+    peso = float(input("Peso (kg): "))
+    altura = float(input("Altura (m): "))
+
+    aluno = {
+        "nome": nome,
+        "idade": idade,
+        "peso": peso,
+        "altura": altura
+    }
+
+    alunos.append(aluno)
+    print("Aluno cadastrado com sucesso!\n")
+
+def listar_alunos():
+    if not alunos:
+        print("Nenhum aluno cadastrado.\n")
+        return
+
+    print("\n=== ALUNOS CADASTRADOS ===")
+    for i, aluno in enumerate(alunos, start=1):
+        print(f"{i}. Nome: {aluno['nome']}")
+        print(f"   Idade: {aluno['idade']}")
+        print(f"   Peso: {aluno['peso']} kg")
+        print(f"   Altura: {aluno['altura']} m\n")
+
+def buscar_aluno():
+    nome = input("Digite o nome do aluno: ")
+
+    for aluno in alunos:
+        if aluno["nome"].lower() == nome.lower():
+            print("\nAluno encontrado:")
+            print(aluno)
+            return
+
+    print("Aluno não encontrado.\n")
+
+while True:
+    print("=== SISTEMA DE ACADEMIA ===")
+    print("1 - Cadastrar aluno")
+    print("2 - Listar alunos")
+    print("3 - Buscar aluno")
+    print("4 - Sair")
+
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        cadastrar_aluno()
+    elif opcao == "2":
+        listar_alunos()
+    elif opcao == "3":
+        buscar_aluno()
+    elif opcao == "4":
+        print("Encerrando sistema...")
+        break
+    else:
+        print("Opção inválida!\n")
+
