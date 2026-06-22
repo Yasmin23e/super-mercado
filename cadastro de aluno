@@ -1,0 +1,82 @@
+import json
+import os
+
+ARQUIVO = "alunos.json"
+
+
+def carregar_alunos():
+    if os.path.exists(ARQUIVO):
+        with open(ARQUIVO, "r", encoding="utf-8") as arquivo:
+            return json.load(arquivo)
+    return []
+
+
+def salvar_alunos(alunos):
+    with open(ARQUIVO, "w", encoding="utf-8") as arquivo:
+        json.dump(alunos, arquivo, indent=4, ensure_ascii=False)
+
+
+def cadastrar_aluno(alunos):
+    nome = input("Nome do aluno: ").strip()
+
+    while True:
+        try:
+            idade = int(input("Idade: "))
+            if idade <= 0:
+                print("A idade deve ser maior que zero.")
+                continue
+            break
+        except ValueError:
+            print("Digite uma idade válida.")
+
+    turma = input("Turma: ").strip()
+
+    aluno = {
+        "nome": nome,
+        "idade": idade,
+        "turma": turma
+    }
+
+    alunos.append(aluno)
+    salvar_alunos(alunos)
+    print("Aluno cadastrado com sucesso!")
+
+
+def listar_alunos(alunos):
+    if not alunos:
+        print("Nenhum aluno cadastrado.")
+        return
+
+    print("\n--- LISTA DE ALUNOS ---")
+    for i, aluno in enumerate(alunos, start=1):
+        print(
+            f"{i}. Nome: {aluno['nome']} | "
+            f"Idade: {aluno['idade']} | "
+            f"Turma: {aluno['turma']}"
+        )
+
+
+def main():
+    alunos = carregar_alunos()
+
+    while True:
+        print("\n=== SISTEMA DE CADASTRO DE ALUNOS ===")
+        print("1 - Cadastrar aluno")
+        print("2 - Listar alunos")
+        print("3 - Sair")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            cadastrar_aluno(alunos)
+        elif opcao == "2":
+            listar_alunos(alunos)
+        elif opcao == "3":
+            print("Sistema encerrado.")
+            break
+        else:
+            print("Opção inválida.")
+
+
+if __name__ == "__main__":
+    main()
