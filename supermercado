@@ -1,0 +1,23 @@
+total = 0
+
+print("=== CAIXA DE SUPERMERCADO ===")
+
+while True:
+    produto = input("Nome do produto (ou 'fim' para encerrar): ")
+
+    if produto.lower() == "fim":
+        break
+
+    preco = float(input("Preço do produto: R$ "))
+    quantidade = int(input("Quantidade: "))
+
+    subtotal = preco * quantidade
+    total += subtotal
+
+    print(f"Subtotal de {produto}: R$ {subtotal:.2f}\n")
+
+# Desconto
+desconto = float(input("Informe o desconto (%): "))
+
+valor_desconto = total * (desconto / 100)
+total_final = total - valor_desconto
